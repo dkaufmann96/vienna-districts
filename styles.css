@@ -1,0 +1,11 @@
+html {
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+}
+
+#map { 
+    min-height: 100vh;
+}
