@@ -29,6 +29,7 @@ export default {
      * @param {Object} data
      */
     createDistrictPolygons(data) {
+      const that = this;
       return L.geoJSON(data, {
         style() {
           return { color: "#808080", width: 2 };
@@ -45,6 +46,9 @@ export default {
             layer.setStyle({
               fillColor: "#808080",
             });
+          });
+          layer.on("click", () => {
+            that.$emit("clicked", feature.properties);
           });
         },
       });
