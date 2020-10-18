@@ -1,23 +1,37 @@
 <template>
-  <div class="container">
-    <Map v-if="districtData" :district-data="districtData" />
+  <div class="grid grid-cols-5 divide-x-2">
+    <div class="col-span-4">
+      <Map
+        v-if="districtData"
+        :district-data="districtData"
+        @clicked="selectedDistrict = $event"
+      />
+    </div>
+    <Sidebar
+      v-if="selectedDistrict"
+      class="col-span-1"
+      :district="selectedDistrict"
+    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Map from "./components/Map.vue";
+import Sidebar from "./components/Sidebar.vue";
 
 export default {
   name: "App",
   components: {
     Map,
+    Sidebar,
   },
   data() {
     return {
       districtSource:
         "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json",
       districtData: undefined,
+      selectedDistrict: undefined,
     };
   },
   methods: {

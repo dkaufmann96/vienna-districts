@@ -1,5 +1,5 @@
 <template>
-  <div id="map" />
+  <div id="map" class="bg-white min-h-screen" />
 </template>
 
 <script>
@@ -59,8 +59,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-#map {
-  min-height: 100vh;
-}
-</style>
