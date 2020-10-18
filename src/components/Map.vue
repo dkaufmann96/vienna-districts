@@ -17,8 +17,8 @@ export default {
   props: {
     districtData: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     /**
@@ -36,13 +36,13 @@ export default {
         onEachFeature(feature, layer) {
           layer.bindTooltip(`<b>${feature.properties.NAMEK_NUM}</b><br/>
             Fläche: ${feature.properties.UMFANG}m²`);
-          layer.on("mouseover", function () {
-            this.setStyle({
+          layer.on("mouseover", () => {
+            layer.setStyle({
               fillColor: "#0000ff",
             });
           });
-          layer.on("mouseout", function () {
-            this.setStyle({
+          layer.on("mouseout", () => {
+            layer.setStyle({
               fillColor: "#808080",
             });
           });

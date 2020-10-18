@@ -1,14 +1,12 @@
 <template>
-  <Map 
-    v-if="districtData" 
-    :district-data="districtData" 
-  />
+  <div class="container">
+    <Map v-if="districtData" :district-data="districtData" />
+  </div>
 </template>
 
 <script>
-import Map from "./components/Map.vue";
-
 import axios from "axios";
+import Map from "./components/Map.vue";
 
 export default {
   name: "App",
@@ -29,6 +27,7 @@ export default {
      * Source: https://data.wien.gv.at
      */
     getDistrictData() {
+      const logger = console;
       if (localStorage.getItem("districts")) {
         // return cached data
         this.districtData = JSON.parse(localStorage.getItem("districts"));
@@ -38,7 +37,7 @@ export default {
           localStorage.setItem("districts", JSON.stringify(response.data)); // cache data
           this.districtData = response.data;
         } else {
-          console.error(response.statusText);
+          logger.error(response.statusText);
         }
       });
     },
