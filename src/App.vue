@@ -47,7 +47,12 @@ export default {
   },
 };
 </script>
-<style lang="scss">
+<style lang="css">
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
 html {
   overflow: hidden;
 }
