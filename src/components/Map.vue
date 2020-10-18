@@ -1,10 +1,8 @@
 <template>
-  <div id="map"></div>
+  <div id="map" />
 </template>
 
 <script>
-import axios from "axios";
-
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
@@ -12,11 +10,15 @@ export default {
   name: "Map",
   data() {
     return {
-      districtSource:
-        "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json",
       map: undefined,
       viennaCoordinates: [48.220033, 16.373449],
     };
+  },
+  props: {
+    districtData: {
+      type: Object,
+      required: true
+    }
   },
   methods: {
     /**
@@ -47,52 +49,17 @@ export default {
         },
       });
     },
-
-    /**
-     * Gets the open data about the districts of vienna.
-     * The is structured in GeoJSON-format.
-     * Source: https://data.wien.gv.at
-     */
-    getDistrictData() {
-      const that = this;
-      return new Promise(function (resolve, reject) {
-        if (localStorage.getItem("districts")) {
-          // return cached data
-          resolve(JSON.parse(localStorage.getItem("districts")));
-        }
-        axios.get(that.districtSource).then((response) => {
-          if (response.status === 200) {
-            localStorage.setItem("districts", JSON.stringify(response.data)); // cache data
-            resolve(response.data);
-          } else {
-            reject({
-              status: response.status,
-              statusText: response.statusText,
-            });
-          }
-        });
-      });
-    },
   },
   async mounted() {
     this.map = L.map("map", { scrollWheelZoom: false, minZoom: 12 }).setView(
       this.viennaCoordinates,
       12
     );
-    const districtData = await this.getDistrictData();
-    this.createDistrictPolygons(districtData).addTo(this.map);
+    this.createDistrictPolygons(this.districtData).addTo(this.map);
   },
 };
 </script>
-<style lang="css" scoped>
-html {
-  overflow: hidden;
-}
-
-body {
-  margin: 0;
-}
-
+<style lang="scss" scoped>
 #map {
   min-height: 100vh;
 }
