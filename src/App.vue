@@ -45,15 +45,16 @@ export default {
       if (localStorage.getItem("districts")) {
         // return cached data
         this.districtData = JSON.parse(localStorage.getItem("districts"));
+      } else {
+        axios.get(this.districtSource).then((response) => {
+          if (response.status === 200) {
+            localStorage.setItem("districts", JSON.stringify(response.data)); // cache data
+            this.districtData = response.data;
+          } else {
+            logger.error(response.statusText);
+          }
+        });
       }
-      axios.get(this.districtSource).then((response) => {
-        if (response.status === 200) {
-          localStorage.setItem("districts", JSON.stringify(response.data)); // cache data
-          this.districtData = response.data;
-        } else {
-          logger.error(response.statusText);
-        }
-      });
     },
   },
   mounted() {
