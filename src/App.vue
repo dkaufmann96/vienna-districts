@@ -4,14 +4,10 @@
       <Map
         v-if="districtData"
         :district-data="districtData"
-        @clicked="selectedDistrict = $event"
+        @clicked="selectDistrict"
       />
     </div>
-    <Sidebar
-      v-if="selectedDistrict"
-      class="col-span-1"
-      :district="selectedDistrict"
-    />
+    <Sidebar class="col-span-1" :district="selectedDistrict" />
   </div>
 </template>
 
@@ -55,6 +51,10 @@ export default {
           }
         });
       }
+    },
+    selectDistrict(district) {
+      this.selectedDistrict =
+        this.selectedDistrict === district ? null : district;
     },
   },
   mounted() {
