@@ -1,13 +1,22 @@
 <template>
   <div class="grid grid-cols-5 divide-x-2">
-    <div class="col-span-4">
+    <div
+      :class="{
+        'col-span-4': selectedDistrict,
+        'col-span-5': !selectedDistrict,
+      }"
+    >
       <Map
         v-if="districtData"
         :district-data="districtData"
         @clicked="selectDistrict"
       />
     </div>
-    <Sidebar class="col-span-1" :district="selectedDistrict" />
+    <Sidebar
+      class="col-span-1"
+      :district="selectedDistrict"
+      v-if="selectedDistrict"
+    />
   </div>
 </template>
 
