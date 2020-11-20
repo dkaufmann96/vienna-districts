@@ -1,5 +1,5 @@
 <template>
-  <div id="map" />
+  <div id="map" class="bg-white min-h-screen" />
 </template>
 
 <script>
@@ -17,8 +17,8 @@ export default {
   props: {
     districtData: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   methods: {
     /**
@@ -29,6 +29,7 @@ export default {
      * @param {Object} data
      */
     createDistrictPolygons(data) {
+      const that = this;
       return L.geoJSON(data, {
         style() {
           return { color: "#808080", width: 2 };
@@ -36,15 +37,18 @@ export default {
         onEachFeature(feature, layer) {
           layer.bindTooltip(`<b>${feature.properties.NAMEK_NUM}</b><br/>
             Fläche: ${feature.properties.UMFANG}m²`);
-          layer.on("mouseover", function () {
-            this.setStyle({
+          layer.on("mouseover", () => {
+            layer.setStyle({
               fillColor: "#0000ff",
             });
           });
-          layer.on("mouseout", function () {
-            this.setStyle({
+          layer.on("mouseout", () => {
+            layer.setStyle({
               fillColor: "#808080",
             });
+          });
+          layer.on("click", () => {
+            that.$emit("clicked", feature.properties);
           });
         },
       });
@@ -59,8 +63,3 @@ export default {
   },
 };
 </script>
-<style lang="scss" scoped>
-#map {
-  min-height: 100vh;
-}
-</style>
