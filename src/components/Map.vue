@@ -55,6 +55,21 @@ export default {
         },
       });
     },
+    resetLayer(layer) {
+      layer.setStyle({
+        fillColor: "#808080",
+      });
+      layer.on("mouseover", () => {
+        layer.setStyle({
+          fillColor: "#0000ff",
+        });
+      });
+      layer.on("mouseout", () => {
+        layer.setStyle({
+          fillColor: "#808080",
+        });
+      });
+    },
   },
   async mounted() {
     this.map = L.map("map", {
