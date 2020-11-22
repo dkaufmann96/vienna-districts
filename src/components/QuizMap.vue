@@ -35,23 +35,24 @@ export default {
       const randomIndex = Math.floor(
         Math.random() * Math.floor(this.layers.length)
       );
-      this.randomDistrict = this.layers[randomIndex];
+      this.randomDistrict = { ...this.layers[randomIndex].feature.properties };
     },
     startQuiz() {
+      this.chosenDistrict = null;
       this.chooseRandomDistrict();
       this.layers.forEach((layer) => {
         this.resetLayer(layer);
         layer.unbindTooltip();
+        layer.removeEventListener("click");
         layer.on("click", (event) => {
-          this.chosenDistrict = event.target;
-          this.chosenDistrict.removeEventListener("mouseover");
-          this.chosenDistrict.removeEventListener("mouseout");
+          event.target.removeEventListener("mouseover");
+          event.target.removeEventListener("mouseout");
+          this.chosenDistrict = { ...event.target.feature.properties };
           if (this.correctlyChosen) {
-            this.chosenDistrict.setStyle({
+            event.target.setStyle({
               fillColor: "green",
             });
             setTimeout(() => {
-              this.chosenDistrict = null;
               this.startQuiz();
             }, 1500);
           } else {
@@ -66,12 +67,9 @@ export default {
   computed: {
     correctlyChosen() {
       if (!this.chosenDistrict || !this.randomDistrict) {
-        return undefined;
+        return null;
       }
-      return (
-        this.randomDistrict.feature.properties.BEZNR ===
-        this.chosenDistrict.feature.properties.BEZNR
-      );
+      return this.randomDistrict.BEZNR === this.chosenDistrict.BEZNR;
     },
   },
   async mounted() {
