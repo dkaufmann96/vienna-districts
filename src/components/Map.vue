@@ -55,10 +55,11 @@ export default {
     },
   },
   async mounted() {
-    this.map = L.map("map", { scrollWheelZoom: false, minZoom: 12 }).setView(
-      this.viennaCoordinates,
-      12
-    );
+    this.map = L.map("map", {
+      scrollWheelZoom: false,
+      minZoom: 12,
+      doubleClickZoom: false,
+    }).setView(this.viennaCoordinates, 12);
     this.createDistrictPolygons(this.districtData).addTo(this.map);
   },
 };
