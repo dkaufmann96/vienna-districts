@@ -5,6 +5,7 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
+import setLayerColor from "../utils/layer";
 
 export default {
   name: "Map",
@@ -40,14 +41,10 @@ export default {
           layer.bindTooltip(`<b>${feature.properties.NAMEK_NUM}</b><br/>
             Fläche: ${feature.properties.UMFANG}m²`);
           layer.on("mouseover", () => {
-            layer.setStyle({
-              fillColor: "#0000ff",
-            });
+            setLayerColor(layer, "#0000ff");
           });
           layer.on("mouseout", () => {
-            layer.setStyle({
-              fillColor: "#808080",
-            });
+            setLayerColor(layer, "#808080");
           });
           layer.on("click", () => {
             that.$emit("clicked", feature.properties);
@@ -57,18 +54,12 @@ export default {
       });
     },
     resetLayer(layer) {
-      layer.setStyle({
-        fillColor: "#808080",
-      });
+      setLayerColor(layer, "#808080");
       layer.on("mouseover", () => {
-        layer.setStyle({
-          fillColor: "#0000ff",
-        });
+        setLayerColor(layer, "#0000ff");
       });
       layer.on("mouseout", () => {
-        layer.setStyle({
-          fillColor: "#808080",
-        });
+        setLayerColor(layer, "#808080");
       });
     },
   },

@@ -18,6 +18,7 @@
 
 <script>
 import getRandomNumberBetween from "../utils/random";
+import setLayerColor from "../utils/layer";
 import Map from "./Map.vue";
 
 export default {
@@ -30,10 +31,28 @@ export default {
     };
   },
   methods: {
+    /**
+     * Chooses a random element from the list of districts.
+     */
     chooseRandomDistrict() {
-      const randomIndex = getRandomNumberBetween(0, this.layers.length);
+      const randomIndex = getRandomNumberBetween(0, this.layers.length - 1);
       this.randomDistrict = { ...this.layers[randomIndex].feature.properties };
     },
+    /**
+     * Changes the color of a layer to red.
+     */
+    colorLayerRed(layer) {
+      setLayerColor(layer, "#ff0000");
+    },
+    /**
+     * Changes the color of a layer to green.
+     */
+    colorLayerGreen(layer) {
+      setLayerColor(layer, "#00cc00");
+    },
+    /**
+     * Executes the quiz.
+     */
     startQuiz() {
       this.chosenDistrict = null;
       this.chooseRandomDistrict();
@@ -46,16 +65,12 @@ export default {
           event.target.removeEventListener("mouseout");
           this.chosenDistrict = { ...event.target.feature.properties };
           if (this.correctlyChosen) {
-            event.target.setStyle({
-              fillColor: "green",
-            });
+            this.colorLayerGreen(layer);
             setTimeout(() => {
               this.startQuiz();
             }, 1500);
           } else {
-            event.target.setStyle({
-              fillColor: "red",
-            });
+            this.colorLayerRed(layer);
           }
         });
       });
