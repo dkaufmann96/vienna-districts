@@ -1,15 +1,20 @@
 <template>
   <div>
-    <div class="flex flex-row space-x-2">
-      <span class="text-gray-700" v-if="randomDistrict"
-        >Wählen Sie den <b>{{ districtIdentifier }}</b> aus!</span
-      >
+    <div
+      class="flex flex-row space-x-2 p-5 absolute left-10 top-10 z-10 rounded-sm border-2 bg-gray-100"
+    >
       <span class="text-green-500" v-if="correctlyChosen"
-        >Richtige Auswahl</span
+        >Richtige Auswahl: Der
+        <b>{{ chosenDistrict.BEZNR }}. Bezirk ({{ chosenDistrict.NAMEK }})</b>
+        wurde ausgewählt.</span
       >
-      <span class="text-red-500" v-if="correctlyChosen === false"
-        >Falsche Auswahl: Der <b>{{ chosenDistrict.BEZNR }}. Bezirk</b> wurde
-        ausgewählt.</span
+      <span class="text-red-500" v-else-if="correctlyChosen === false"
+        >Falsche Auswahl: Der
+        <b>{{ chosenDistrict.BEZNR }}. Bezirk ({{ chosenDistrict.NAMEK }})</b>
+        wurde ausgewählt.</span
+      >
+      <span class="text-gray-700" v-else-if="randomDistrict"
+        >Wählen Sie den <b>{{ districtIdentifier }}</b> aus!</span
       >
     </div>
     <div id="map" class="bg-white min-h-screen" />
@@ -71,6 +76,10 @@ export default {
             }, 1500);
           } else {
             this.colorLayerRed(layer);
+            setTimeout(() => {
+              setLayerColor(layer, "#808080");
+              this.chosenDistrict = null;
+            }, 1500);
           }
         });
       });
