@@ -1,21 +1,32 @@
 <template>
-  <div class="grid grid-cols-5 divide-x-2">
-    <div
+  <div>
+    <a
+      @click="quizMode = !quizMode"
       :class="{
-        'col-span-4': selectedDistrict,
-        'col-span-5': !selectedDistrict,
+        'absolute left-5 top-5 z-10 rounded-lg border-2 bg-white p-5 space-x-2 cursor-pointer': true,
+        'bg-green-500': quizMode,
       }"
     >
-      <template v-if="districtData">
-        <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
-        <Map :district-data="districtData" @clicked="selectDistrict" v-else />
-      </template>
+      <span>Quiz-Modus</span>
+    </a>
+    <div class="grid grid-cols-5 divide-x-2">
+      <div
+        :class="{
+          'col-span-4': selectedDistrict,
+          'col-span-5': !selectedDistrict,
+        }"
+      >
+        <template v-if="districtData">
+          <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
+          <Map :district-data="districtData" @clicked="selectDistrict" v-else />
+        </template>
+      </div>
+      <Sidebar
+        class="col-span-1"
+        :district="selectedDistrict"
+        v-if="selectedDistrict"
+      />
     </div>
-    <Sidebar
-      class="col-span-1"
-      :district="selectedDistrict"
-      v-if="selectedDistrict"
-    />
   </div>
 </template>
 
@@ -38,7 +49,7 @@ export default {
         "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json",
       districtData: undefined,
       selectedDistrict: undefined,
-      quizMode: true,
+      quizMode: false,
     };
   },
   methods: {

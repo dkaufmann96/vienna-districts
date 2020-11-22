@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="flex flex-row space-x-2 p-5 absolute left-10 top-10 z-10 rounded-sm border-2 bg-gray-100"
+      class="flex flex-row space-x-2 p-5 absolute left-5 top-28 z-10 rounded-lg border-2 bg-white"
     >
       <span class="text-green-500" v-if="correctlyChosen"
         >Richtige Auswahl: Der
