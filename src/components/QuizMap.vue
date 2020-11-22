@@ -2,15 +2,13 @@
   <div>
     <div class="flex flex-row space-x-2">
       <span class="text-gray-700" v-if="randomDistrict"
-        >Wählen Sie den
-        <b>{{ randomDistrict.feature.properties.BEZ }}. Bezirk</b> aus!</span
+        >Wählen Sie den <b>{{ randomDistrict.BEZNR }}. Bezirk</b> aus!</span
       >
       <span class="text-green-500" v-if="correctlyChosen"
         >Richtige Auswahl</span
       >
       <span class="text-red-500" v-if="correctlyChosen === false"
-        >Falsche Auswahl: Der
-        <b>{{ chosenDistrict.feature.properties.BEZ }}. Bezirk</b> wurde
+        >Falsche Auswahl: Der <b>{{ chosenDistrict.BEZNR }}. Bezirk</b> wurde
         ausgewählt.</span
       >
     </div>
