@@ -17,6 +17,7 @@
 </template>
 
 <script>
+import getRandomNumberBetween from "../utils/random";
 import Map from "./Map.vue";
 
 export default {
@@ -30,9 +31,7 @@ export default {
   },
   methods: {
     chooseRandomDistrict() {
-      const randomIndex = Math.floor(
-        Math.random() * Math.floor(this.layers.length)
-      );
+      const randomIndex = getRandomNumberBetween(0, this.layers.length);
       this.randomDistrict = { ...this.layers[randomIndex].feature.properties };
     },
     startQuiz() {
@@ -64,7 +63,7 @@ export default {
   },
   computed: {
     districtIdentifier() {
-      return Math.ceil(Math.random() * Math.floor(2)) > 1
+      return getRandomNumberBetween(0, 2) > 1
         ? `${this.randomDistrict.BEZNR}. Bezirk`
         : `Bezirk ${this.randomDistrict.NAMEK}`;
     },
