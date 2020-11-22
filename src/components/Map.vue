@@ -15,6 +15,7 @@ export default {
       layers: [],
     };
   },
+  emits: ["clicked"],
   props: {
     districtData: {
       type: Object,
