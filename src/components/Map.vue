@@ -12,6 +12,7 @@ export default {
     return {
       map: undefined,
       viennaCoordinates: [48.220033, 16.373449],
+      layers: [],
     };
   },
   props: {
@@ -50,6 +51,7 @@ export default {
           layer.on("click", () => {
             that.$emit("clicked", feature.properties);
           });
+          that.layers.push(layer);
         },
       });
     },
