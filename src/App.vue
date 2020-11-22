@@ -6,11 +6,10 @@
         'col-span-5': !selectedDistrict,
       }"
     >
-      <Map
-        v-if="districtData"
-        :district-data="districtData"
-        @clicked="selectDistrict"
-      />
+      <template v-if="districtData">
+        <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
+        <Map :district-data="districtData" @clicked="selectDistrict" v-else />
+      </template>
     </div>
     <Sidebar
       class="col-span-1"
@@ -23,12 +22,14 @@
 <script>
 import axios from "axios";
 import Map from "./components/Map.vue";
+import QuizMap from "./components/QuizMap.vue";
 import Sidebar from "./components/Sidebar.vue";
 
 export default {
   name: "App",
   components: {
     Map,
+    QuizMap,
     Sidebar,
   },
   data() {
@@ -37,6 +38,7 @@ export default {
         "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json",
       districtData: undefined,
       selectedDistrict: undefined,
+      quizMode: true,
     };
   },
   methods: {
