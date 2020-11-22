@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-row space-x-2">
       <span class="text-gray-700" v-if="randomDistrict"
-        >Wählen Sie den <b>{{ randomDistrict.BEZNR }}. Bezirk</b> aus!</span
+        >Wählen Sie den <b>{{ districtIdentifier }}</b> aus!</span
       >
       <span class="text-green-500" v-if="correctlyChosen"
         >Richtige Auswahl</span
@@ -63,6 +63,11 @@ export default {
     },
   },
   computed: {
+    districtIdentifier() {
+      return Math.ceil(Math.random() * Math.floor(2)) > 1
+        ? `${this.randomDistrict.BEZNR}. Bezirk`
+        : `Bezirk ${this.randomDistrict.NAMEK}`;
+    },
     correctlyChosen() {
       if (!this.chosenDistrict || !this.randomDistrict) {
         return null;
