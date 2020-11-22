@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex flex-row">
+    <div class="flex flex-row space-x-2">
       <span class="text-gray-700" v-if="randomDistrict"
         >Wählen Sie den
         <b>{{ randomDistrict.feature.properties.BEZ }}. Bezirk</b> aus!</span
