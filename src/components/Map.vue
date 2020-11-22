@@ -77,6 +77,7 @@ export default {
       scrollWheelZoom: false,
       minZoom: 12,
       doubleClickZoom: false,
+      zoomControl: false,
     }).setView(this.viennaCoordinates, 12);
     this.createDistrictPolygons(this.districtData).addTo(this.map);
   },
