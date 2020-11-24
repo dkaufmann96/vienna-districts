@@ -17,6 +17,9 @@
         >Wählen Sie den <b>{{ districtIdentifier }}</b> aus!</span
       >
     </div>
+    <div class="absolute p-5 left-5 top-48 z-10 rounded-lg border-2 bg-white">
+      Punkte: {{ points }}
+    </div>
     <div id="map" class="bg-white min-h-screen" />
   </div>
 </template>
@@ -35,6 +38,7 @@ export default {
       chosenDistrict: undefined,
       wrongChoiceTimeout: undefined,
       rightChoiceTimeout: undefined,
+      points: 0,
     };
   },
   methods: {
@@ -74,11 +78,13 @@ export default {
           if (this.correctlyChosen) {
             clearTimeout(this.wrongChoiceTimeout);
             this.colorLayerGreen(layer);
+            this.points += 1;
             this.rightChoiceTimeout = setTimeout(() => {
               this.startQuiz();
             }, 1500);
           } else {
             this.colorLayerRed(layer);
+            this.points = this.points > 0 ? this.points - 1 : 0;
             this.wrongChoiceTimeout = setTimeout(() => {
               setLayerColor(layer, "#808080");
               this.chosenDistrict = null;
