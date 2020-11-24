@@ -33,6 +33,8 @@ export default {
     return {
       randomDistrict: undefined,
       chosenDistrict: undefined,
+      wrongChoiceTimeout: undefined,
+      rightChoiceTimeout: undefined,
     };
   },
   methods: {
@@ -70,13 +72,14 @@ export default {
           event.target.removeEventListener("mouseout");
           this.chosenDistrict = { ...event.target.feature.properties };
           if (this.correctlyChosen) {
+            clearTimeout(this.wrongChoiceTimeout);
             this.colorLayerGreen(layer);
-            setTimeout(() => {
+            this.rightChoiceTimeout = setTimeout(() => {
               this.startQuiz();
             }, 1500);
           } else {
             this.colorLayerRed(layer);
-            setTimeout(() => {
+            this.wrongChoiceTimeout = setTimeout(() => {
               setLayerColor(layer, "#808080");
               this.chosenDistrict = null;
             }, 1500);
