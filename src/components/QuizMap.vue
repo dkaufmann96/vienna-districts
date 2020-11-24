@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="flex flex-row space-x-2 p-5 absolute left-5 top-28 z-10 rounded-lg border-2 bg-white"
+      class="flex flex-row space-x-2 p-5 absolute left-5 top-28 z-top rounded-lg border-2 bg-white"
     >
       <span class="text-green-500" v-if="correctlyChosen"
         >Richtige Auswahl: Der
@@ -17,7 +17,7 @@
         >Wählen Sie den <b>{{ districtIdentifier }}</b> aus!</span
       >
     </div>
-    <div class="absolute p-5 left-5 top-48 z-10 rounded-lg border-2 bg-white">
+    <div class="absolute p-5 left-5 top-48 z-top rounded-lg border-2 bg-white">
       Punkte: {{ points }}
     </div>
     <div id="map" class="bg-white min-h-screen" />

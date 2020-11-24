@@ -3,7 +3,7 @@
     <a
       @click="quizMode = !quizMode"
       :class="{
-        'absolute left-5 top-5 z-10 rounded-lg border-2 bg-white p-5 space-x-2 cursor-pointer': true,
+        'absolute left-5 top-5 z-top rounded-lg border-2 bg-white p-5 space-x-2 cursor-pointer': true,
         'bg-green-500': quizMode,
       }"
     >
