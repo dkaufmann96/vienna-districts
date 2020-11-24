@@ -74,6 +74,9 @@ export default {
         });
       }
     },
+    /**
+     * Sets the selected district.
+     */
     selectDistrict(district) {
       this.selectedDistrict =
         this.selectedDistrict === district ? null : district;

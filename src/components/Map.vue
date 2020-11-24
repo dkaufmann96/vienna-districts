@@ -29,7 +29,7 @@ export default {
      * The GeoJSON data is parsed by the built-in geoJSON-function
      * of the leaflet framework.
      * Each district is assigned a tooltip that contains data about it.
-     * @param {Object} data
+     * @param {Object} data - The geoJson-data to use.
      */
     createDistrictPolygons(data) {
       const that = this;
@@ -53,6 +53,10 @@ export default {
         },
       });
     },
+    /**
+     * Resets a district layer to its default state.
+     * @param {Object} layer - The district layer to reset.
+     */
     resetLayer(layer) {
       setLayerColor(layer, "#808080");
       layer.on("mouseover", () => {
@@ -63,6 +67,10 @@ export default {
       });
     },
   },
+  /**
+   * Initializes the map object using the leaflet map() function.
+   * Creates the district polygons afterwards using the given data.
+   */
   async mounted() {
     this.map = L.map("map", {
       scrollWheelZoom: false,

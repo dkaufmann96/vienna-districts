@@ -95,11 +95,23 @@ export default {
     },
   },
   computed: {
+    /**
+     * Returns either the district number or
+     * the district name with a 50% probability.
+     *
+     * @returns {string} The district identifier.
+     */
     districtIdentifier() {
       return getRandomNumberBetween(0, 2) > 1
         ? `${this.randomDistrict.BEZNR}. Bezirk`
         : `Bezirk ${this.randomDistrict.NAMEK}`;
     },
+    /**
+     * Returns whether the correct district was chosen or not.
+     *
+     * @return {boolean} - Whether the chosen district id
+     * matches the randomly selected one.
+     */
     correctlyChosen() {
       if (!this.chosenDistrict || !this.randomDistrict) {
         return null;
