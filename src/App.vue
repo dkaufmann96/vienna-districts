@@ -1,7 +1,7 @@
 <template>
   <div>
     <a
-      @click="quizMode = !quizMode"
+      @click="setQuizMode"
       :class="{
         'absolute left-5 top-5 z-top rounded-lg border-2 bg-white p-5 space-x-2 cursor-pointer': true,
         'bg-green-500': quizMode,
@@ -77,6 +77,13 @@ export default {
     selectDistrict(district) {
       this.selectedDistrict =
         this.selectedDistrict === district ? null : district;
+    },
+    /**
+     * Enables the quiz mode and closes the sidebar.
+     */
+    setQuizMode() {
+      this.selectedDistrict = null;
+      this.quizMode = !this.quizMode;
     },
   },
   mounted() {
