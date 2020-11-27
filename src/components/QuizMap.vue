@@ -1,25 +1,15 @@
 <template>
   <div>
-    <div
-      class="flex flex-row space-x-2 p-5 absolute left-5 top-28 z-top rounded-lg border-2 bg-white"
-    >
-      <span class="text-green-500" v-if="correctlyChosen"
-        >Richtige Auswahl: Der
-        <b>{{ chosenDistrict.BEZNR }}. Bezirk ({{ chosenDistrict.NAMEK }})</b>
-        wurde ausgewählt.</span
-      >
-      <span class="text-red-500" v-else-if="correctlyChosen === false"
-        >Falsche Auswahl: Der
-        <b>{{ chosenDistrict.BEZNR }}. Bezirk ({{ chosenDistrict.NAMEK }})</b>
-        wurde ausgewählt.</span
-      >
-      <span class="text-gray-700" v-else-if="randomDistrict"
-        >Wählen Sie den <b>{{ districtIdentifier }}</b> aus!</span
-      >
-    </div>
-    <div class="absolute p-5 left-5 top-48 z-top rounded-lg border-2 bg-white">
-      Punkte: {{ points }}
-    </div>
+    <QuizOverlay
+      :points="points"
+      :district-identifier="districtIdentifier"
+      :chosen-district="chosenDistrict"
+      :random-district="randomDistrict"
+      :correctly-chosen="correctlyChosen"
+      :quiz-mode="quizMode"
+      @set-quiz-mode="$emit('set-quiz-mode')"
+      v-if="randomDistrict"
+    />
     <div id="map" class="bg-white min-h-screen" />
   </div>
 </template>
