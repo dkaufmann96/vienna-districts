@@ -1,32 +1,27 @@
 <template>
-  <div>
-    <a
-      @click="setQuizMode"
+  <div class="grid grid-cols-5 divide-x-2">
+    <div
       :class="{
-        'absolute left-5 top-5 z-top rounded-lg border-2 bg-white p-5 space-x-2 cursor-pointer': true,
-        'bg-green-500': quizMode,
+        'col-span-4': selectedDistrict,
+        'col-span-5': !selectedDistrict,
       }"
     >
-      <span>Quiz-Modus</span>
-    </a>
-    <div class="grid grid-cols-5 divide-x-2">
-      <div
-        :class="{
-          'col-span-4': selectedDistrict,
-          'col-span-5': !selectedDistrict,
-        }"
-      >
-        <template v-if="districtData">
-          <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
-          <Map :district-data="districtData" @clicked="selectDistrict" v-else />
-        </template>
-      </div>
-      <Sidebar
-        class="col-span-1"
-        :district="selectedDistrict"
-        v-if="selectedDistrict"
-      />
+      <template v-if="districtData">
+        <QuizButton @click="setQuizMode" v-if="!quizMode" />
+        <QuizMap
+          :district-data="districtData"
+          v-if="quizMode"
+          :quiz-mode="quizMode"
+          @set-quiz-mode="setQuizMode"
+        ></QuizMap>
+        <Map :district-data="districtData" @clicked="selectDistrict" v-else />
+      </template>
     </div>
+    <Sidebar
+      class="col-span-1"
+      :district="selectedDistrict"
+      v-if="selectedDistrict"
+    />
   </div>
 </template>
 
@@ -35,6 +30,7 @@ import axios from "axios";
 import Map from "./components/Map.vue";
 import QuizMap from "./components/QuizMap.vue";
 import Sidebar from "./components/Sidebar.vue";
+import QuizButton from "./components/QuizButton.vue";
 
 export default {
   name: "App",
@@ -42,6 +38,7 @@ export default {
     Map,
     QuizMap,
     Sidebar,
+    QuizButton,
   },
   data() {
     return {

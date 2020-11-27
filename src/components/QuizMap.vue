@@ -32,6 +32,12 @@ import Map from "./Map.vue";
 export default {
   name: "QuizMap",
   extends: Map,
+  props: {
+    quizMode: {
+      type: Boolean,
+      required: true,
+    },
+  },
   data() {
     return {
       randomDistrict: undefined,
