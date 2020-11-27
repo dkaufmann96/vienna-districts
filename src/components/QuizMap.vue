@@ -6,8 +6,6 @@
       :chosen-district="chosenDistrict"
       :random-district="randomDistrict"
       :correctly-chosen="correctlyChosen"
-      :quiz-mode="quizMode"
-      @set-quiz-mode="$emit('set-quiz-mode')"
       v-if="randomDistrict"
     />
     <div id="map" class="bg-white min-h-screen" />
@@ -18,16 +16,11 @@
 import getRandomNumberBetween from "../utils/random";
 import setLayerColor from "../utils/layer";
 import Map from "./Map.vue";
+import QuizOverlay from "./QuizOverlay.vue";
 
 export default {
   name: "QuizMap",
   extends: Map,
-  props: {
-    quizMode: {
-      type: Boolean,
-      required: true,
-    },
-  },
   data() {
     return {
       randomDistrict: undefined,
@@ -36,6 +29,9 @@ export default {
       rightChoiceTimeout: undefined,
       points: 0,
     };
+  },
+  components: {
+    QuizOverlay,
   },
   methods: {
     /**

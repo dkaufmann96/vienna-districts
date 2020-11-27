@@ -27,6 +27,7 @@
 
 <script>
 import axios from "axios";
+import global from "./state/global";
 import Map from "./components/Map.vue";
 import QuizMap from "./components/QuizMap.vue";
 import Sidebar from "./components/Sidebar.vue";
@@ -40,13 +41,20 @@ export default {
     Sidebar,
     QuizButton,
   },
+  provide: {
+    global,
+  },
+  computed: {
+    quizMode() {
+      return global.state.quizMode;
+    },
+  },
   data() {
     return {
       districtSource:
         "https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json",
       districtData: undefined,
       selectedDistrict: undefined,
-      quizMode: false,
     };
   },
   methods: {

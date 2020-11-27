@@ -21,13 +21,8 @@
 </template>
 
 <script>
-import QuizButton from "./QuizButton.vue";
-
 export default {
   name: "QuizOverlay",
-  components: {
-    QuizButton,
-  },
   props: {
     points: {
       type: Number,
@@ -47,10 +42,6 @@ export default {
     },
     districtIdentifier: {
       type: String,
-      required: true,
-    },
-    quizMode: {
-      type: Boolean,
       required: true,
     },
   },
