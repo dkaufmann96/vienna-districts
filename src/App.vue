@@ -6,11 +6,11 @@
         'col-span-5': !selectedDistrict,
       }"
     >
-      <Map
-        v-if="districtData"
-        :district-data="districtData"
-        @clicked="selectDistrict"
-      />
+      <template v-if="districtData">
+        <QuizButton class="absolute left-0 md:left-5 top-0 md:top-5 z-top" />
+        <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
+        <Map :district-data="districtData" @clicked="selectDistrict" v-else />
+      </template>
     </div>
     <Sidebar
       class="col-span-1"
@@ -22,14 +22,27 @@
 
 <script>
 import axios from "axios";
+import global from "./state/global";
 import Map from "./components/Map.vue";
+import QuizMap from "./components/QuizMap.vue";
 import Sidebar from "./components/Sidebar.vue";
+import QuizButton from "./components/QuizButton.vue";
 
 export default {
   name: "App",
   components: {
     Map,
+    QuizMap,
     Sidebar,
+    QuizButton,
+  },
+  provide: {
+    global,
+  },
+  computed: {
+    quizMode() {
+      return global.state.quizMode;
+    },
   },
   data() {
     return {
@@ -61,9 +74,19 @@ export default {
         });
       }
     },
+    /**
+     * Sets the selected district.
+     */
     selectDistrict(district) {
       this.selectedDistrict =
         this.selectedDistrict === district ? null : district;
+    },
+    /**
+     * Enables the quiz mode and closes the sidebar.
+     */
+    setQuizMode() {
+      this.selectedDistrict = null;
+      this.quizMode = !this.quizMode;
     },
   },
   mounted() {
