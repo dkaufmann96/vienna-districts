@@ -7,7 +7,10 @@
       }"
     >
       <template v-if="districtData">
-        <QuizButton class="absolute left-0 md:left-5 top-0 md:top-5 z-top" />
+        <QuizButton
+          class="absolute left-0 md:left-5 top-0 md:top-5 z-top"
+          @click="selectedDistrict = null"
+        />
         <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
         <Map :district-data="districtData" @clicked="selectDistrict" v-else />
       </template>
