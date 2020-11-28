@@ -1,22 +1,29 @@
 <template>
-  <div class="grid grid-cols-5 divide-x-2">
+  <div class="relative md:grid md:grid-cols-5 md:divide-x-2">
     <div
       :class="{
-        'col-span-4': selectedDistrict,
-        'col-span-5': !selectedDistrict,
+        'md:col-span-4': selectedDistrict,
+        'md:col-span-5': !selectedDistrict,
       }"
     >
       <template v-if="districtData">
-        <QuizButton class="absolute left-0 md:left-5 top-0 md:top-5 z-top" />
+        <QuizButton
+          class="absolute left-0 md:left-5 top-0 md:top-5 z-top"
+          @click="selectedDistrict = null"
+        />
         <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
         <Map :district-data="districtData" @clicked="selectDistrict" v-else />
       </template>
     </div>
-    <Sidebar
-      class="col-span-1"
-      :district="selectedDistrict"
-      v-if="selectedDistrict"
-    />
+    <div
+      class="absolute inset-0 flex items-center justify-center md:col-span-1 md:relative"
+    >
+      <Sidebar
+        :district="selectedDistrict"
+        @closed="selectedDistrict = null"
+        v-if="selectedDistrict"
+      />
+    </div>
   </div>
 </template>
 
