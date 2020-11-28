@@ -80,5 +80,8 @@ export default {
     }).setView(this.viennaCoordinates, 12);
     this.createDistrictPolygons(this.districtData).addTo(this.map);
   },
+  unmounted() {
+    this.map.invalidateSize();
+  },
 };
 </script>
