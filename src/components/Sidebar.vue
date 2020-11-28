@@ -3,6 +3,9 @@
     <div
       class="p-5 w-3/4 md:w-full h-3/4 md:h-screen rounded border-current space-y-0 md:space-y-2 transition-all duration-700 ease-in-out overflow-y-scroll bg-white z-top"
     >
+      <div class="w-full flex flex-row justify-end">
+        <span class="text-gray-700 text-base" @click="close">x</span>
+      </div>
       <h2 class="text-gray-700 text-lg">{{ district.NAMEK_NUM }}</h2>
       <p class="text-gray-700 text-base" v-if="information">
         {{ information.extract }}
@@ -49,6 +52,9 @@ export default {
         `https://de.wikipedia.org/api/rest_v1/page/summary/${this.districtIdentifier}`
       );
       return data;
+    },
+    close() {
+      this.$emit("closed");
     },
   },
   computed: {

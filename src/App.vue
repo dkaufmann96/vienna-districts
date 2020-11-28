@@ -15,7 +15,11 @@
     <div
       class="absolute inset-0 flex items-center justify-center md:col-span-1 md:relative"
     >
-      <Sidebar :district="selectedDistrict" v-if="selectedDistrict" />
+      <Sidebar
+        :district="selectedDistrict"
+        @closed="selectedDistrict = null"
+        v-if="selectedDistrict"
+      />
     </div>
   </div>
 </template>
