@@ -12,6 +12,11 @@
       <p class="text-gray-700 text-base" v-if="information">
         {{ information.extract }}
       </p>
+      <p>
+        <a class="text-gray-700 text-base underline" :href="contentUrl"
+          >mehr Infos</a
+        >
+      </p>
     </div>
   </transition>
 </template>
@@ -71,6 +76,12 @@ export default {
       return this.specialDistricts.find((id) => id === this.district.BEZNR)
         ? `${this.district.NAMEK}_(Wien)`
         : this.district.NAMEK;
+    },
+    /**
+     * Returns the url to the wikipedia article.
+     */
+    contentUrl() {
+      return this.information && this.information.content_urls.desktop.page;
     },
   },
   unmounted() {
