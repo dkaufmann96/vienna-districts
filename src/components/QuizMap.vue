@@ -28,6 +28,7 @@ export default {
       wrongChoiceTimeout: undefined,
       rightChoiceTimeout: undefined,
       points: 0,
+      clickedDistrictNr: undefined,
     };
   },
   components: {
@@ -39,6 +40,12 @@ export default {
      */
     chooseRandomDistrict() {
       const randomIndex = getRandomNumberBetween(0, this.layers.length - 1);
+      if (
+        this.layers[randomIndex].feature.properties.BEZNR ===
+        this.selectedDistrictNr
+      ) {
+        this.chooseRandomDistrict();
+      }
       this.randomDistrict = { ...this.layers[randomIndex].feature.properties };
     },
     /**
@@ -64,9 +71,13 @@ export default {
         layer.unbindTooltip();
         layer.removeEventListener("click");
         layer.on("click", (event) => {
+          this.chosenDistrict = { ...event.target.feature.properties };
+          if (this.clickedDistrictNr === this.chosenDistrict.BEZNR) {
+            return;
+          }
+          this.clickedDistrictNr = this.chosenDistrict.BEZNR;
           event.target.removeEventListener("mouseover");
           event.target.removeEventListener("mouseout");
-          this.chosenDistrict = { ...event.target.feature.properties };
           if (this.correctlyChosen) {
             clearTimeout(this.wrongChoiceTimeout);
             this.colorLayerGreen(layer);
