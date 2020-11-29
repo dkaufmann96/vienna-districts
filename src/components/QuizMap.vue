@@ -71,9 +71,13 @@ export default {
         layer.unbindTooltip();
         layer.removeEventListener("click");
         layer.on("click", (event) => {
+          this.chosenDistrict = { ...event.target.feature.properties };
+          if (this.clickedDistrictNr === this.chosenDistrict.BEZNR) {
+            return;
+          }
+          this.clickedDistrictNr = this.chosenDistrict.BEZNR;
           event.target.removeEventListener("mouseover");
           event.target.removeEventListener("mouseout");
-          this.chosenDistrict = { ...event.target.feature.properties };
           if (this.correctlyChosen) {
             clearTimeout(this.wrongChoiceTimeout);
             this.colorLayerGreen(layer);
