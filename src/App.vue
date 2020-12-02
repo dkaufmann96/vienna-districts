@@ -7,16 +7,16 @@
       }"
     >
       <template v-if="districtData">
-        <QuizButton
-          class="absolute left-0 md:left-5 top-0 md:top-5 z-top"
-          @click="selectedDistrict = null"
+        <MapOverlay
+          @quiz-mode-toggled="selectedDistrict = null"
+          :quiz-mode="quizMode"
         />
         <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
         <Map :district-data="districtData" @clicked="selectDistrict" v-else />
       </template>
     </div>
     <div
-      class="absolute inset-0 flex items-center justify-center md:col-span-1 md:relative"
+      class="absolute md:relative inset-0 flex items-center justify-center md:col-span-1"
     >
       <Sidebar
         :district="selectedDistrict"
@@ -33,7 +33,7 @@ import global from "./state/global";
 import Map from "./components/Map.vue";
 import QuizMap from "./components/QuizMap.vue";
 import Sidebar from "./components/Sidebar.vue";
-import QuizButton from "./components/QuizButton.vue";
+import MapOverlay from "./components/MapOverlay.vue";
 
 export default {
   name: "App",
@@ -41,7 +41,7 @@ export default {
     Map,
     QuizMap,
     Sidebar,
-    QuizButton,
+    MapOverlay,
   },
   provide: {
     global,
