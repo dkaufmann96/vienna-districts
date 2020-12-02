@@ -1,35 +1,55 @@
 <template>
-  <div class="grid grid-cols-5 divide-x-2">
+  <div class="relative md:grid md:grid-cols-5 md:divide-x-2">
     <div
       :class="{
-        'col-span-4': selectedDistrict,
-        'col-span-5': !selectedDistrict,
+        'md:col-span-4': selectedDistrict,
+        'md:col-span-5': !selectedDistrict,
       }"
     >
-      <Map
-        v-if="districtData"
-        :district-data="districtData"
-        @clicked="selectDistrict"
+      <template v-if="districtData">
+        <MapOverlay
+          @quiz-mode-toggled="selectedDistrict = null"
+          :quiz-mode="quizMode"
+        />
+        <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
+        <Map :district-data="districtData" @clicked="selectDistrict" v-else />
+      </template>
+    </div>
+    <div
+      class="absolute md:relative inset-0 flex items-center justify-center md:col-span-1"
+    >
+      <Sidebar
+        :district="selectedDistrict"
+        @closed="selectedDistrict = null"
+        v-if="selectedDistrict"
       />
     </div>
-    <Sidebar
-      class="col-span-1"
-      :district="selectedDistrict"
-      v-if="selectedDistrict"
-    />
   </div>
 </template>
 
 <script>
 import axios from "axios";
+import global from "./state/global";
 import Map from "./components/Map.vue";
+import QuizMap from "./components/QuizMap.vue";
 import Sidebar from "./components/Sidebar.vue";
+import MapOverlay from "./components/MapOverlay.vue";
 
 export default {
   name: "App",
   components: {
     Map,
+    QuizMap,
     Sidebar,
+    MapOverlay,
+  },
+  provide: {
+    global,
+  },
+  computed: {
+    quizMode() {
+      return global.state.quizMode;
+    },
   },
   data() {
     return {
@@ -61,9 +81,19 @@ export default {
         });
       }
     },
+    /**
+     * Sets the selected district.
+     */
     selectDistrict(district) {
       this.selectedDistrict =
         this.selectedDistrict === district ? null : district;
+    },
+    /**
+     * Enables the quiz mode and closes the sidebar.
+     */
+    setQuizMode() {
+      this.selectedDistrict = null;
+      this.quizMode = !this.quizMode;
     },
   },
   mounted() {
