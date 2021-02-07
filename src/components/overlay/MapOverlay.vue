@@ -1,8 +1,8 @@
 <template>
   <div
     :class="{
-      'absolute left-0 md:left-5 md:p-5 top-0 md:top-5 z-top flex flex-col w-screen md:w-auto md:bg-white md:space-y-2 map-overlay': true,
-      'space-y-2 bg-white': !quizMode,
+      'absolute left-0 md:left-5 md:p-5 top-0 md:top-5 z-top flex flex-col w-screen md:w-auto md:space-y-2 md:bg-transparent bg-white max-h-12': true,
+      'space-y-2 md:bg-transparent bg-white': !quizMode,
     }"
   >
     <div
@@ -38,13 +38,3 @@ export default {
   },
 };
 </script>
-
-<style scoped>
-.map-overlay:hover .menu {
-  display: block;
-}
-.menu {
-  display: none;
-  background-color: transparent;
-}
-</style>
