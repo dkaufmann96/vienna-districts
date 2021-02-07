@@ -8,14 +8,14 @@
       :correctly-chosen="correctlyChosen"
       v-if="randomDistrict"
     />
-    <div id="map" class="bg-white min-h-screen" />
+    <div id="map" class="bg-white min-h-screen md:border-red-700 md:border-8" />
   </div>
 </template>
 
 <script>
-import getRandomNumberBetween from "../utils/random";
-import setLayerColor from "../utils/layer";
-import Map from "./Map.vue";
+import getRandomNumberBetween from "../../utils/random";
+import setLayerColor from "../../utils/layer";
+import Map from "../Map.vue";
 import QuizOverlay from "./QuizOverlay.vue";
 
 export default {
