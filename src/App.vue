@@ -13,6 +13,7 @@
         />
         <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
         <Map :district-data="districtData" @clicked="selectDistrict" v-else />
+        <MapMenu />
       </template>
     </div>
     <div
@@ -31,9 +32,10 @@
 import axios from "axios";
 import global from "./state/global";
 import Map from "./components/Map.vue";
-import QuizMap from "./components/QuizMap.vue";
-import Sidebar from "./components/Sidebar.vue";
-import MapOverlay from "./components/MapOverlay.vue";
+import QuizMap from "./components/quiz/QuizMap.vue";
+import Sidebar from "./components/sidebar/Sidebar.vue";
+import MapOverlay from "./components/overlay/MapOverlay.vue";
+import MapMenu from "./components/menu/MapMenu.vue";
 
 export default {
   name: "App",
@@ -42,6 +44,7 @@ export default {
     QuizMap,
     Sidebar,
     MapOverlay,
+    MapMenu,
   },
   provide: {
     global,

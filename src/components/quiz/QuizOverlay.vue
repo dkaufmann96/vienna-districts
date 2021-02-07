@@ -1,6 +1,6 @@
 <template>
   <div
-    class="left-0 md:left-5 p-1 md:p-5 absolute top-9 md:top-48 z-top rounded-lg border-2 bg-white w-screen md:w-auto text-sm md:text-md"
+    class="left-0 md:left-5 p-1 md:p-8 absolute top-0 md:top-28 z-top border-8 bg-white md:border-gray-500 md:border-2 rounded-lg border-red-700 w-screen md:w-auto text-sm md:text-md"
   >
     <span class="text-green-500" v-if="correctlyChosen"
       >Richtige Auswahl: Der

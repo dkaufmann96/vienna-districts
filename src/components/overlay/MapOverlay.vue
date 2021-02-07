@@ -1,8 +1,8 @@
 <template>
   <div
     :class="{
-      'absolute left-0 md:left-5 md:p-5 top-0 md:top-5 z-top flex flex-col w-screen md:w-auto md:bg-white md:space-y-2 md:rounded-lg md:border-2': true,
-      'space-y-2 p-3 bg-white rounded-lg border-2': !quizMode,
+      'absolute left-0 md:left-5 md:p-5 top-0 md:top-5 z-top flex flex-col w-screen md:w-auto md:bg-white md:space-y-2 map-overlay': true,
+      'space-y-2 bg-white': !quizMode,
     }"
   >
     <div
@@ -17,25 +17,20 @@
       />
       <h1 class="text-2xl">Wiener Bezirke</h1>
     </div>
-    <QuizButton @click="toggleQuizMode" />
   </div>
 </template>
 
 <script>
-import QuizButton from "./QuizButton.vue";
-
 export default {
   name: "MapOverlay",
   emits: ["quiz-mode-toggled"],
-  components: {
-    QuizButton,
-  },
   props: {
     quizMode: {
       type: Boolean,
       required: true,
     },
   },
+  inject: ["global"],
   methods: {
     toggleQuizMode() {
       this.$emit("quiz-mode-toggled");
@@ -44,4 +39,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style scoped>
+.map-overlay:hover .menu {
+  display: block;
+}
+.menu {
+  display: none;
+  background-color: transparent;
+}
+</style>
