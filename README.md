@@ -1,4 +1,9 @@
-# vienna-districts
+# Vienna Districts
+
+This page enables people to explore the districts of Vienna, the capital of Austria.
+There is also a quiz-mode to learn the locations of the districts and their names.
+
+[Website](vienna-districts.netlify.com)
 
 ## Project setup
 ```
