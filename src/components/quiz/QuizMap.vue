@@ -72,9 +72,6 @@ export default {
         layer.removeEventListener("click");
         layer.on("click", (event) => {
           this.chosenDistrict = { ...event.target.feature.properties };
-          if (this.clickedDistrictNr === this.chosenDistrict.BEZNR) {
-            return;
-          }
           this.clickedDistrictNr = this.chosenDistrict.BEZNR;
           event.target.removeEventListener("mouseover");
           event.target.removeEventListener("mouseout");
