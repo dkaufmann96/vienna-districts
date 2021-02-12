@@ -73,8 +73,8 @@ export default {
    */
   async mounted() {
     this.map = L.map("map", {
-      scrollWheelZoom: false,
-      minZoom: 12,
+      scrollWheelZoom: true,
+      minZoom: 10,
       doubleClickZoom: false,
       zoomControl: false,
     }).setView(this.viennaCoordinates, 12);
