@@ -72,9 +72,6 @@ export default {
         layer.removeEventListener("click");
         layer.on("click", (event) => {
           this.chosenDistrict = { ...event.target.feature.properties };
-          if (this.clickedDistrictNr === this.chosenDistrict.BEZNR) {
-            return;
-          }
           this.clickedDistrictNr = this.chosenDistrict.BEZNR;
           event.target.removeEventListener("mouseover");
           event.target.removeEventListener("mouseout");
@@ -89,7 +86,7 @@ export default {
             this.colorLayerRed(layer);
             this.points = this.points > 0 ? this.points - 1 : 0;
             this.wrongChoiceTimeout = setTimeout(() => {
-              setLayerColor(layer, "#808080");
+              this.resetLayer(layer);
               this.chosenDistrict = null;
             }, 1500);
           }
