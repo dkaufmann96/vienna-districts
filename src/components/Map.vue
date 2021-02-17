@@ -5,7 +5,7 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import setLayerColor from "../utils/layer";
+import { setLayerTooltip, setLayerColor } from "../utils/layer";
 
 export default {
   name: "Map",
@@ -38,32 +38,31 @@ export default {
           return { color: "#808080", width: 2 };
         },
         onEachFeature(feature, layer) {
-          layer.bindTooltip(`<b>${feature.properties.NAMEK_NUM}</b><br/>
-            Fläche: ${feature.properties.UMFANG}m²`);
-          layer.on("mouseover", () => {
-            setLayerColor(layer, "#0000ff");
-          });
-          layer.on("mouseout", () => {
-            setLayerColor(layer, "#808080");
-          });
-          layer.on("click", () => {
-            that.$emit("clicked", feature.properties);
-          });
+          that.initializeMapLayer(layer, feature);
           that.layers.push(layer);
         },
       });
     },
     /**
-     * Resets a district layer to its default state.
-     * @param {Object} layer - The district layer to reset.
+     * Initializes a map layer.
+     * @param {Object} layer - The layer to initialize.
+     * @param {Object} data - The data to use for initialization.
      */
-    resetLayer(layer) {
-      setLayerColor(layer, "#808080");
+    initializeMapLayer(layer, data) {
+      const that = this;
+      setLayerTooltip(
+        layer,
+        `<b>${data.properties.NAMEK_NUM}</b><br/>
+            Fläche: ${data.properties.UMFANG}m²`
+      );
       layer.on("mouseover", () => {
         setLayerColor(layer, "#0000ff");
       });
       layer.on("mouseout", () => {
         setLayerColor(layer, "#808080");
+      });
+      layer.on("click", () => {
+        that.$emit("clicked", data.properties);
       });
     },
   },
