@@ -7,5 +7,5 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [require("@tailwindcss/ui")],
+  plugins: ["@tailwindcss/ui"],
 };
