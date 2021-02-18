@@ -14,12 +14,7 @@
 
 <script>
 import getRandomNumberBetween from "@/utils/random";
-import {
-  setLayerColorRed,
-  setLayerColorGreen,
-  disableLayerHovering,
-  resetLayer,
-} from "@/utils/layer";
+import setLayerColor from "@/utils/layer";
 import Map from "@/components/Map.vue";
 import QuizOverlay from "@/components/quiz/QuizOverlay.vue";
 
