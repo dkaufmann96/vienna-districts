@@ -13,10 +13,15 @@
 </template>
 
 <script>
-import getRandomNumberBetween from "../../utils/random";
-import setLayerColor from "../../utils/layer";
-import Map from "../Map.vue";
-import QuizOverlay from "./QuizOverlay.vue";
+import getRandomNumberBetween from "@/utils/random";
+import {
+  setLayerColorRed,
+  setLayerColorGreen,
+  disableLayerHovering,
+  resetLayer,
+} from "@/utils/layer";
+import Map from "@/components/Map.vue";
+import QuizOverlay from "@/components/quiz/QuizOverlay.vue";
 
 export default {
   name: "QuizMap",

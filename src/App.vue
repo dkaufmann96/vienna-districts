@@ -30,12 +30,12 @@
 
 <script>
 import axios from "axios";
-import global from "./state/global";
-import Map from "./components/Map.vue";
-import QuizMap from "./components/quiz/QuizMap.vue";
-import Sidebar from "./components/sidebar/Sidebar.vue";
-import MapOverlay from "./components/overlay/MapOverlay.vue";
-import MapMenu from "./components/menu/MapMenu.vue";
+import QuizMap from "@/components/quiz/QuizMap.vue";
+import global from "@/state/global";
+import Map from "@/components/Map.vue";
+import Sidebar from "@/components/sidebar/Sidebar.vue";
+import MapOverlay from "@/components/overlay/MapOverlay.vue";
+import MapMenu from "@/components/menu/MapMenu.vue";
 
 export default {
   name: "App",
