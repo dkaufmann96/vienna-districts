@@ -5,7 +5,6 @@ module.exports = {
     browser: true,
     es6: true,
     mocha: true,
-    tailwind: true,
   },
   extends: [
     "plugin:vue/essential",
