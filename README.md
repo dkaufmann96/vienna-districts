@@ -1,9 +1,18 @@
-# vienna-districts
+# Vienna Districts
 
-## Project setup
-```
-npm install
-```
+This page enables people to explore the districts of Vienna, the capital of Austria.
+There is also a quiz-mode to learn the locations of the districts and their names.
+
+[Website](https://vienna-districts.netlify.com)
+
+## Installation
+
+- Clone this repository
+- Navigate into the repositories folder: `cd vienna-districts`
+- Install dependencies: `npm install`
+- Start up development server: `npm run serve`
+
+## NPM scripts
 
 ### Compiles and hot-reloads for development
 ```
@@ -19,6 +28,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
