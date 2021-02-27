@@ -5,6 +5,7 @@ context("Quiz", () => {
   });
 
   it("The quiz-button is visible", () => {
+    cy.get("#map").should("be.visible");
     cy.get("[data-cy=quiz-button]").should("be.visible");
   });
 
