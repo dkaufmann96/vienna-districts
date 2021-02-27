@@ -39,6 +39,7 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-tailwind": "^0.2.0",
     "eslint-plugin-vue": "^7.0.1",
+    "netlify-plugin-cypress": "^1.11.1",
     "postcss": "^8.1.1",
     "prettier": "^2.1.2",
     "sass": "^1.27.0",
