@@ -49,6 +49,9 @@ export default {
           layer.on("click", () => {
             that.$emit("clicked", feature.properties);
           });
+          layer.setStyle({
+            className: `district-${feature.properties.BEZNR.toString()}`,
+          });
           that.layers.push(layer);
         },
       });
