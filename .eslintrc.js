@@ -14,6 +14,7 @@ module.exports = {
     "prettier/vue",
     "plugin:import/recommended",
     "plugin:tailwind/recommended",
+    "plugin:cypress/recommended",
   ],
   globals: {
     Atomics: "readonly",
