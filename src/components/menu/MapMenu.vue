@@ -1,5 +1,8 @@
 <template>
-  <div class="absolute right-0 md:right-0 top-36 md:top-10 z-top">
+  <div
+    class="absolute right-0 md:right-0 top-36 md:top-10 z-top"
+    data-cy="map-menu"
+  >
     <QuizButton @click="toggleQuizMode" class="mb-2" />
   </div>
 </template>

@@ -1,7 +1,12 @@
 /* eslint-disable no-unused-expressions */
 context("Quiz", () => {
+  before(() => {
+    cy.cacheMapData();
+  });
   beforeEach(() => {
+    cy.restoreLocalStorage();
     cy.visit("localhost:8080");
+    cy.get("[data-cy=map]").should("exist");
   });
 
   it("The quiz-button is visible", () => {

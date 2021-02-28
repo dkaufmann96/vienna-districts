@@ -1,5 +1,5 @@
 <template>
-  <div id="map" class="bg-white min-h-screen" />
+  <div id="map" class="bg-white min-h-screen" data-cy="map" />
 </template>
 
 <script>
