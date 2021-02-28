@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen md:w-auto">
+  <div class="w-screen md:w-auto" data-cy="quiz-map">
     <QuizOverlay
       :points="points"
       :district-identifier="districtIdentifier"
@@ -8,7 +8,11 @@
       :correctly-chosen="correctlyChosen"
       v-if="randomDistrict"
     />
-    <div id="map" class="bg-white min-h-screen md:border-red-700 md:border-8" />
+    <div
+      id="map"
+      class="bg-white min-h-screen md:border-red-700 md:border-8"
+      data-cy="map"
+    />
   </div>
 </template>
 

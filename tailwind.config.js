@@ -1,3 +1,5 @@
+const tailwindcssUi = require("@tailwindcss/ui");
+
 module.exports = {
   purge: ["./public/**/*.html", "./src/**/*.vue"],
   theme: {
@@ -7,5 +9,5 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [require("@tailwindcss/ui")],
+  plugins: [tailwindcssUi],
 };

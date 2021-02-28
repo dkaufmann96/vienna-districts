@@ -2,18 +2,31 @@
   <transition name="fade">
     <div
       class="p-5 w-3/4 md:w-full h-3/4 md:h-screen rounded border-current space-y-0 md:space-y-2 transition-all duration-700 ease-in-out overflow-y-scroll bg-white z-top"
+      data-cy="sidebar"
     >
       <div class="w-full flex flex-row justify-end">
-        <span class="text-gray-700 text-base cursor-pointer" @click="close"
+        <span
+          class="text-gray-700 text-base cursor-pointer"
+          data-cy="sidebar-close"
+          @click="close"
           >x</span
         >
       </div>
-      <h2 class="text-gray-700 text-lg">{{ district.NAMEK_NUM }}</h2>
-      <p class="text-gray-700 text-base" v-if="information">
+      <h2 class="text-gray-700 text-lg" data-cy="sidebar-title">
+        {{ district.NAMEK_NUM }}
+      </h2>
+      <p
+        class="text-gray-700 text-base"
+        data-cy="sidebar-text"
+        v-if="information"
+      >
         {{ information.extract }}
       </p>
       <p>
-        <a class="text-gray-700 text-base underline" :href="contentUrl"
+        <a
+          class="text-gray-700 text-base underline"
+          data-cy="sidebar-more-info"
+          :href="contentUrl"
           >mehr Infos</a
         >
       </p>
