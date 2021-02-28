@@ -1,3 +1,5 @@
+import "cypress-localstorage-commands";
+
 /* eslint-disable no-unused-expressions */
 
 // ***********************************************
@@ -25,6 +27,21 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add("cacheMapData", () => {
+  cy.clearLocalStorageSnapshot();
+  cy.intercept(
+    "GET",
+    " https://data.wien.gv.at/daten/geo?service=WFS&request=GetFeature&version=1.1.0&typeName=ogdwien:BEZIRKSGRENZEOGD&srsName=EPSG:4326&outputFormat=json",
+    { fixture: "districts.json" }
+  ).as("mapData");
+  cy.visit("localhost:8080");
+  cy.wait("@mapData").then((interception) => {
+    cy.get("[data-cy=map]").should("exist");
+    cy.setLocalStorage("districts", JSON.stringify(interception.response.body));
+    cy.saveLocalStorage();
+  });
+});
 
 Cypress.Commands.add("startQuiz", () => {
   cy.get("[data-cy=quiz-button]").click();
