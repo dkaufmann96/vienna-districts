@@ -5,7 +5,7 @@
 <script>
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { setLayerTooltip, setLayerColor } from "../utils/layer";
+import { setLayerTooltip, setLayerColor, setLayerClass } from "../utils/layer";
 
 export default {
   name: "Map",
@@ -64,6 +64,7 @@ export default {
       layer.on("click", () => {
         that.$emit("clicked", data.properties);
       });
+      setLayerClass(layer, `district-${data.properties.BEZNR.toString()}`);
     },
   },
   /**

@@ -49,6 +49,17 @@ export function setLayerColorGreen(layer) {
 }
 
 /**
+ * Sets the class of a layer.
+ * @param {Object} layer - The layer to set the class on.
+ * @param {String} className - The class to set.
+ */
+export function setLayerClass(layer, className) {
+  layer.setStyle({
+    className,
+  });
+}
+
+/**
  * Disables all hovering events for the given layer.
  * @param {Object} layer - The layer to use.
  */
