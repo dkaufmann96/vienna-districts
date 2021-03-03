@@ -90,18 +90,13 @@ export default {
      */
     initializeMapLayerForQuizMode(layer) {
       const that = this;
-      let clicked = false;
       resetLayer(layer);
       layer.unbindTooltip();
       layer.removeEventListener("click");
       layer.on("click", (event) => {
-        if (clicked) {
-          return;
-        }
         that.setChosenDistrict({ ...event.target.feature.properties });
         disableLayerHovering(event.target);
         that.handleDistrictChoice(event.target);
-        clicked = true;
       });
     },
     /**

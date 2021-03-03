@@ -77,6 +77,9 @@ export default {
       minZoom: 10,
       doubleClickZoom: false,
       zoomControl: false,
+      touchZoom: true,
+      bounceAtZoomLimits: false,
+      tap: false, // ref https://github.com/Leaflet/Leaflet/issues/7255
     }).setView(this.viennaCoordinates, 12);
     this.createDistrictPolygons(this.districtData).addTo(this.map);
   },
