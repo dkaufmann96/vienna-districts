@@ -17,10 +17,15 @@
 </template>
 
 <script>
-import getRandomNumberBetween from "@/utils/random";
-import setLayerColor from "@/utils/layer";
-import Map from "@/components/Map.vue";
-import QuizOverlay from "@/components/quiz/QuizOverlay.vue";
+import getRandomNumberBetween from "../../utils/random";
+import {
+  setLayerColorRed,
+  setLayerColorGreen,
+  disableLayerHovering,
+  resetLayer,
+} from "../../utils/layer";
+import Map from "../Map.vue";
+import QuizOverlay from "./QuizOverlay.vue";
 
 export default {
   name: "QuizMap",
@@ -32,7 +37,8 @@ export default {
       wrongChoiceTimeout: undefined,
       rightChoiceTimeout: undefined,
       points: 0,
-      clickedDistrictNr: undefined,
+      successTimeout: 1200,
+      failureTimeout: 1200,
     };
   },
   components: {
@@ -44,25 +50,28 @@ export default {
      */
     chooseRandomDistrict() {
       const randomIndex = getRandomNumberBetween(0, this.layers.length - 1);
-      if (
-        this.layers[randomIndex].feature.properties.BEZNR ===
-        this.selectedDistrictNr
-      ) {
-        this.chooseRandomDistrict();
-      }
       this.randomDistrict = { ...this.layers[randomIndex].feature.properties };
     },
     /**
-     * Changes the color of a layer to red.
+     * Sets the chosen district to the given one.
+     *
+     * @param {Object} district - The chosen district.
      */
-    colorLayerRed(layer) {
-      setLayerColor(layer, "#ff0000");
+    setChosenDistrict(district) {
+      this.chosenDistrict = district;
     },
     /**
-     * Changes the color of a layer to green.
+     * Increments the players points by 1.
      */
-    colorLayerGreen(layer) {
-      setLayerColor(layer, "#00cc00");
+    incrementPoints() {
+      this.points =
+        this.points < Number.MAX_SAFE_INTEGER ? this.points + 1 : this.points;
+    },
+    /**
+     * Decrements the players points by 1.
+     */
+    decrementPoints() {
+      this.points = this.points > 0 ? this.points - 1 : 0;
     },
     /**
      * Executes the quiz.
@@ -71,31 +80,66 @@ export default {
       this.chosenDistrict = null;
       this.chooseRandomDistrict();
       this.layers.forEach((layer) => {
-        this.resetLayer(layer);
-        layer.unbindTooltip();
-        layer.removeEventListener("click");
-        layer.on("click", (event) => {
-          this.chosenDistrict = { ...event.target.feature.properties };
-          this.clickedDistrictNr = this.chosenDistrict.BEZNR;
-          event.target.removeEventListener("mouseover");
-          event.target.removeEventListener("mouseout");
-          if (this.correctlyChosen) {
-            clearTimeout(this.wrongChoiceTimeout);
-            this.colorLayerGreen(layer);
-            this.points += 1;
-            this.rightChoiceTimeout = setTimeout(() => {
-              this.startQuiz();
-            }, 1500);
-          } else {
-            this.colorLayerRed(layer);
-            this.points = this.points > 0 ? this.points - 1 : 0;
-            this.wrongChoiceTimeout = setTimeout(() => {
-              this.resetLayer(layer);
-              this.chosenDistrict = null;
-            }, 1500);
-          }
-        });
+        this.initializeMapLayerForQuizMode(layer);
       });
+    },
+    /**
+     * Initializes a layer for being used in quiz-mode.
+     *
+     * @param {Object} layer - The layer to initialize.
+     */
+    initializeMapLayerForQuizMode(layer) {
+      const that = this;
+      resetLayer(layer);
+      layer.unbindTooltip();
+      layer.removeEventListener("click");
+      layer.on("click", (event) => {
+        that.setChosenDistrict({ ...event.target.feature.properties });
+        disableLayerHovering(event.target);
+        that.handleDistrictChoice(event.target);
+      });
+    },
+    /**
+     * Handles a district being clicked.
+     *
+     * @param {Object} layer - The layer of the district that was chosen.
+     */
+    handleDistrictChoice(layer) {
+      if (this.correctlyChosen) {
+        this.handleCorrectChoice(layer);
+      } else {
+        this.handleWrongChoice(layer);
+      }
+    },
+    /**
+     * Handles a correct district choice by settings its layer color to green
+     * and incrementing the players score.
+     * Restarts the quiz after a timeout.
+     *
+     * @param {Object} layer - The layer of the district that was chosen.
+     */
+    handleCorrectChoice(layer) {
+      clearTimeout(this.wrongChoiceTimeout);
+      setLayerColorGreen(layer);
+      this.incrementPoints();
+      this.rightChoiceTimeout = setTimeout(() => {
+        this.startQuiz();
+      }, this.successTimeout);
+    },
+    /**
+     * Handles a wrong district choice by settings its layer color to red
+     * and decrementing the players score.
+     * Resets the layer after a timeout.
+     *
+     * @param {Object} layer - The layer of the district that was chosen.
+     */
+    handleWrongChoice(layer) {
+      setLayerColorRed(layer);
+      this.decrementPoints();
+      this.wrongChoiceTimeout = setTimeout(() => {
+        resetLayer(layer);
+        this.chosenDistrict = null;
+      }, this.failureTimeout);
     },
   },
   computed: {
