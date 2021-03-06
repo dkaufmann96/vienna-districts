@@ -27,7 +27,7 @@ sizes.forEach((size) => {
       cy.get("[data-cy=quiz-map]").should("be.visible");
       cy.get("[data-cy=quiz-map] > #map").should(($map) => {
         expect($map).to.be.visible;
-        expect($map).to.have.class("md:border-red-700");
+        expect($map).to.have.class("md:border-yellow-500");
         expect($map).to.have.class("md:border-8");
       });
       cy.get("[data-cy=quiz-overlay]").should(($quizOverlay) => {

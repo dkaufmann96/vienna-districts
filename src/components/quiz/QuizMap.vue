@@ -10,22 +10,23 @@
     />
     <div
       id="map"
-      class="bg-white min-h-screen md:border-red-700 md:border-8"
+      :class="`bg-white min-h-screen md:border-${global.state.borderColor}-500 md:border-8`"
       data-cy="map"
     />
   </div>
 </template>
 
 <script>
-import getRandomNumberBetween from "../../utils/random";
 import {
   setLayerColorRed,
   setLayerColorGreen,
   disableLayerHovering,
   resetLayer,
-} from "../../utils/layer";
-import Map from "../Map.vue";
+} from "@/utils/layer";
+import Map from "@/components/Map.vue";
+import Colors from "@/utils/color";
 import QuizOverlay from "./QuizOverlay.vue";
+import getRandomNumberBetween from "../../utils/random";
 
 export default {
   name: "QuizMap",
@@ -41,6 +42,7 @@ export default {
       failureTimeout: 1200,
     };
   },
+  inject: ["global"],
   components: {
     QuizOverlay,
   },
@@ -121,8 +123,10 @@ export default {
     handleCorrectChoice(layer) {
       clearTimeout(this.wrongChoiceTimeout);
       setLayerColorGreen(layer);
+      this.global.setBorderColor(Colors.GREEN);
       this.incrementPoints();
       this.rightChoiceTimeout = setTimeout(() => {
+        this.global.resetBorderColor();
         this.startQuiz();
       }, this.successTimeout);
     },
@@ -135,10 +139,12 @@ export default {
      */
     handleWrongChoice(layer) {
       setLayerColorRed(layer);
+      this.global.setBorderColor(Colors.RED);
       this.decrementPoints();
       this.wrongChoiceTimeout = setTimeout(() => {
         resetLayer(layer);
         this.chosenDistrict = null;
+        this.global.resetBorderColor();
       }, this.failureTimeout);
     },
   },
