@@ -73,13 +73,17 @@ export default {
    */
   async mounted() {
     this.map = L.map("map", {
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       scrollWheelZoom: true,
       minZoom: 10,
+      maxZoom: 18,
       doubleClickZoom: false,
       zoomControl: false,
       touchZoom: true,
       bounceAtZoomLimits: false,
       tap: false, // ref https://github.com/Leaflet/Leaflet/issues/7255
+      zoomOffset: -1,
     }).setView(this.viennaCoordinates, 12);
     this.createDistrictPolygons(this.districtData).addTo(this.map);
   },
