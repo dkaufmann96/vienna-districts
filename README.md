@@ -3,7 +3,7 @@
 This page enables people to explore the districts of Vienna, the capital of Austria.
 There is also a quiz-mode to learn the locations of the districts and their names.
 
-[Website](https://vienna-districts.netlify.com)
+[Website](https://vienna-districts.danielkaufmann.at)
 
 ## Installation
 
