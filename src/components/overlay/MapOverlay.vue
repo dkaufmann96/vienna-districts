@@ -14,7 +14,8 @@
       data-cy="heading-container"
     >
       <img
-        width="30"
+        class="max-h-12"
+        width="25"
         data-cy="logo"
         src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Wien_Wappen.svg"
       />
