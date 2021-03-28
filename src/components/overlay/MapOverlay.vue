@@ -1,41 +1,40 @@
 <template>
   <div
     :class="{
-      'absolute left-0 md:left-5 md:p-5 top-0 md:top-5 z-top flex flex-col w-screen md:w-auto md:bg-white md:space-y-2 md:rounded-lg md:border-2': true,
-      'space-y-2 p-3 bg-white rounded-lg border-2': !quizMode,
+      'absolute left-0 md:left-5 md:p-5 top-0 md:top-5 z-top flex flex-col w-screen md:w-auto md:space-y-2 md:bg-transparent bg-white max-h-12': true,
+      'space-y-2 md:bg-transparent bg-white': !quizMode,
     }"
+    data-cy="map-overlay"
   >
     <div
       :class="{
         'flex flex-row space-x-1 justify-center': true,
         'hidden md:flex': quizMode,
       }"
+      data-cy="heading-container"
     >
       <img
-        width="30"
+        class="max-h-12"
+        width="25"
+        data-cy="logo"
         src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Wien_Wappen.svg"
       />
-      <h1 class="text-2xl">Wiener Bezirke</h1>
+      <h1 class="text-2xl" data-cy="heading">Wiener Bezirke</h1>
     </div>
-    <QuizButton @click="toggleQuizMode" />
   </div>
 </template>
 
 <script>
-import QuizButton from "./QuizButton.vue";
-
 export default {
   name: "MapOverlay",
   emits: ["quiz-mode-toggled"],
-  components: {
-    QuizButton,
-  },
   props: {
     quizMode: {
       type: Boolean,
       required: true,
     },
   },
+  inject: ["global"],
   methods: {
     toggleQuizMode() {
       this.$emit("quiz-mode-toggled");
@@ -43,5 +42,3 @@ export default {
   },
 };
 </script>
-
-<style></style>

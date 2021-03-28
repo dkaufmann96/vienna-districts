@@ -1,39 +1,39 @@
 <template>
   <div class="relative md:grid md:grid-cols-5 md:divide-x-2">
+    <MapOverlay
+      @quiz-mode-toggled="selectedDistrict = null"
+      :quiz-mode="quizMode"
+    />
     <div
       :class="{
         'md:col-span-4': selectedDistrict,
         'md:col-span-5': !selectedDistrict,
       }"
+      v-if="districtData"
     >
-      <template v-if="districtData">
-        <MapOverlay
-          @quiz-mode-toggled="selectedDistrict = null"
-          :quiz-mode="quizMode"
-        />
-        <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
-        <Map :district-data="districtData" @clicked="selectDistrict" v-else />
-      </template>
+      <QuizMap :district-data="districtData" v-if="quizMode"></QuizMap>
+      <Map :district-data="districtData" @clicked="selectDistrict" v-else />
+      <MapMenu />
     </div>
+    <LoadingSpinner v-else />
     <div
       class="absolute md:relative inset-0 flex items-center justify-center md:col-span-1"
+      v-if="selectedDistrict"
     >
-      <Sidebar
-        :district="selectedDistrict"
-        @closed="selectedDistrict = null"
-        v-if="selectedDistrict"
-      />
+      <Sidebar :district="selectedDistrict" @closed="selectedDistrict = null" />
     </div>
   </div>
 </template>
 
 <script>
 import axios from "axios";
-import global from "./state/global";
-import Map from "./components/Map.vue";
-import QuizMap from "./components/QuizMap.vue";
-import Sidebar from "./components/Sidebar.vue";
-import MapOverlay from "./components/MapOverlay.vue";
+import QuizMap from "@/components/quiz/QuizMap.vue";
+import global from "@/state/global";
+import Map from "@/components/Map.vue";
+import Sidebar from "@/components/sidebar/Sidebar.vue";
+import MapOverlay from "@/components/overlay/MapOverlay.vue";
+import MapMenu from "@/components/menu/MapMenu.vue";
+import LoadingSpinner from "@/components/LoadingSpinner.vue";
 
 export default {
   name: "App",
@@ -42,6 +42,8 @@ export default {
     QuizMap,
     Sidebar,
     MapOverlay,
+    MapMenu,
+    LoadingSpinner,
   },
   provide: {
     global,
@@ -96,7 +98,7 @@ export default {
       this.quizMode = !this.quizMode;
     },
   },
-  mounted() {
+  created() {
     this.getDistrictData();
   },
 };
@@ -111,6 +113,13 @@ html {
   overflow: hidden;
 }
 body {
+  padding: 0;
   margin: 0;
+}
+html,
+body,
+#map {
+  height: 100%;
+  width: 100vw;
 }
 </style>

@@ -1,3 +1,20 @@
+## v1.1.0
+
+### Added
+
+- E2E tests using cypress
+- A path alias for imports (#17)
+- A loading indicator when loading the map data
+
+### Fixed
+
+- map-zooming on mobile
+- broken banner on mobile (#5)
+
+### Changed
+
+- Map-related components to improve maintainability
+
 ## v1.0.0
 
 ### Added
