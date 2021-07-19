@@ -19,7 +19,9 @@
         data-cy="logo"
         src="https://upload.wikimedia.org/wikipedia/commons/b/b4/Wien_Wappen.svg"
       />
-      <h1 class="text-2xl" data-cy="heading">Wiener Bezirke</h1>
+      <h1 class="text-2xl" data-cy="heading">
+        {{ $t("message.vienna-districts") }}
+      </h1>
     </div>
   </div>
 </template>

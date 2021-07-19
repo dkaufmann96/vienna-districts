@@ -5,19 +5,49 @@
     :data-attribute="randomDistrict.BEZNR"
   >
     <span class="text-green-500" v-if="correctlyChosen"
-      >Richtige Auswahl: Der
-      <b>{{ chosenDistrict.BEZNR }}. Bezirk ({{ chosenDistrict.NAMEK }})</b>
-      wurde ausgewählt.</span
+      >{{ $t("message.correct-choice") }}:
+      <i18n-t
+        keypath="message.chosen-district"
+        tag="span"
+        for="message.district-with-name"
+      >
+        <b>{{
+          $t("message.district-with-name", {
+            districtNumber: chosenDistrict.BEZNR,
+            districtName: chosenDistrict.NAMEK,
+          })
+        }}</b></i18n-t
+      ></span
     >
     <span class="text-red-500" v-else-if="correctlyChosen === false"
-      >Falsche Auswahl: Der
-      <b>{{ chosenDistrict.BEZNR }}. Bezirk ({{ chosenDistrict.NAMEK }})</b>
-      wurde ausgewählt.</span
+      >{{ $t("message.wrong-choice") }}:
+      <i18n-t
+        keypath="message.chosen-district"
+        tag="span"
+        for="message.district-with-name"
+      >
+        <b>{{
+          $t("message.district-with-name", {
+            districtNumber: chosenDistrict.BEZNR,
+            districtName: chosenDistrict.NAMEK,
+          })
+        }}</b></i18n-t
+      ></span
     >
-    <span class="text-gray-700" v-else-if="randomDistrict"
-      >Wählen Sie den <b>{{ districtIdentifier }}</b> aus!</span
+    <span class="text-gray-700" v-else-if="randomDistrict">
+      <i18n-t
+        keypath="message.choose-district"
+        tag="span"
+        for="message.district-with-identifier"
+      >
+        <b>{{
+          $t("message.district-with-identifier", {
+            identifier: districtIdentifier,
+          })
+        }}</b></i18n-t
+      ></span
     >
-    <div class="text-gray-700">Punkte: {{ points }}</div>
+    <div class="text-gray-700">{{ $t("message.score") }}: {{ points }}</div>
   </div>
 </template>
 

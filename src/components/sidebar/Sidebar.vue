@@ -27,7 +27,7 @@
           class="text-gray-700 text-base underline"
           data-cy="sidebar-more-info"
           :href="contentUrl"
-          >mehr Infos</a
+          >{{ $t("message.more-infos") }}</a
         >
       </p>
     </div>
