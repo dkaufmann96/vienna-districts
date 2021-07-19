@@ -48,7 +48,6 @@ export default {
   data() {
     return {
       information: undefined,
-      specialDistricts: [1, 7, 8, 14, 23],
     };
   },
   watch: {
@@ -68,9 +67,7 @@ export default {
      * Returns the information for a district fetched from wikipedia.
      */
     async getWikipediaSummary() {
-      const { data } = await axios.get(
-        `https://de.wikipedia.org/api/rest_v1/page/summary/${this.districtIdentifier}`
-      );
+      const { data } = await axios.get(this.$t(`links.${this.district.BEZNR}`));
       return data;
     },
     close() {
