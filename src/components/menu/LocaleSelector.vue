@@ -16,5 +16,15 @@
 <script>
 export default {
   name: "locale-selector",
+  watch: {
+    locale(locale) {
+      this.$router.push({ name: "Home", params: { locale } });
+    },
+  },
+  computed: {
+    locale() {
+      return this.$i18n.locale;
+    },
+  },
 };
 </script>

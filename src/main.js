@@ -1,6 +1,9 @@
 import { createApp } from "vue";
 import { createI18n } from "vue-i18n";
+import { createRouter, createWebHistory } from "vue-router";
 import App from "./App.vue";
+
+const app = createApp(App);
 
 const messages = {
   en: {
@@ -89,8 +92,38 @@ const i18n = createI18n({
   messages,
 });
 
-const app = createApp(App);
+const routes = [
+  {
+    path: "/:locale",
+    name: "Home",
+    component: {
+      template: "<router-view></router-view>",
+    },
+    beforeEnter: (to, from, next) => {
+      const { locale } = to.params;
+      const supportedLocales = ["de", "en"];
+      if (!supportedLocales.includes(locale)) return next("de");
+      if (i18n.global.locale !== locale) {
+        i18n.global.locale = locale;
+      }
+      return next();
+    },
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    redirect() {
+      return "de";
+    },
+  },
+];
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes,
+});
 
 app.use(i18n);
+
+app.use(router);
 
 app.mount("#app");
