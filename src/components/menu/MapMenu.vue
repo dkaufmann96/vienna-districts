@@ -4,17 +4,20 @@
     data-cy="map-menu"
   >
     <QuizButton @click="toggleQuizMode" class="mb-2" />
+    <LocaleSelector />
   </div>
 </template>
 
 <script>
 import QuizButton from "../quiz/QuizButton.vue";
+import LocaleSelector from "./LocaleSelector.vue";
 
 export default {
   name: "MapOverlay",
   emits: ["quiz-mode-toggled"],
   components: {
     QuizButton,
+    LocaleSelector,
   },
   props: {
     quizMode: {

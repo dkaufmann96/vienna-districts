@@ -22,6 +22,7 @@
     >
       <Sidebar :district="selectedDistrict" @closed="selectedDistrict = null" />
     </div>
+    <router-view />
   </div>
 </template>
 
