@@ -4,7 +4,7 @@
     class="quiz-button rounded-l-md bg-black p-3 text-md md:text-lg cursor-pointer text-center text-white bg-opacity-50 text-opacity-100"
     data-cy="quiz-button"
   >
-    Quiz
+    {{ $t("message.quiz-button") }}
   </a>
 </template>
 
